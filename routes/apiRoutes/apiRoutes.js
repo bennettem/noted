@@ -1,12 +1,12 @@
 const fs = require("fs");
 const path = require("path");
 const router = require("express").Router();
-const db = path.join(__dirname, "../../db/db.json");
+const dbPath = path.join(__dirname, "../../db/db.json");
 
 var notesArray = [];
 
 router.get("/notes", (req, res) => {
-  res.sendFile(db);
+  res.sendFile(dbPath);
 });
 
 router.post("/notes", (req, res) => {
@@ -19,12 +19,12 @@ router.post("/notes", (req, res) => {
   notesArray.push(newNote);
   content = JSON.stringify(notesArray);
 
-  fs.writeFile(db, content, function (err) {
+  fs.writeFile(dbPath, content, function (err) {
     if (err) throw err;
     console.log("This has been saved!");
   });
 
-  res.json(db);
+  res.json(dbPath);
 });
 
 module.exports = router;
